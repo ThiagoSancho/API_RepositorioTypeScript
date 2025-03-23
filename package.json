@@ -1,0 +1,26 @@
+{
+  "name": "api_repositoriotccs_ts",
+  "version": "1.0.0",
+  "description": "API repositório de TCC's em TypeScript, MySQL, MongoDB",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "predev": "tsc --build",
+    "dev": "node build/index.js"
+  },
+  "author": "Thiago Sancho",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/node": "^22.13.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "axios": "^1.8.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.13.0"
+  }
+}

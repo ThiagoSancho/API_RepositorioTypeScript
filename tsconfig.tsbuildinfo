@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/config/database.ts","./src/config/logging.ts","./src/controllers/coursecontroller.ts","./src/controllers/teste.ts","./src/interfaces/courseinterface.ts","./src/models/course.ts","./src/routes/courseroutes.ts"],"version":"5.8.2"}
