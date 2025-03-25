@@ -1,16 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import Course from "../../models/course.js";
 import { Connect } from "../../config/database.js";
-import { Connection } from "mysql2";
+import { Connection } from "mysql2/promise.js";
 import { logError, logInfo } from "../../config/logging.js";
+import { errorResponse, successResponse } from "../../config/responseHelper.js";
 
 const NAMESPACE = "COURSES";
 
-export async function getAllCourses(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> {
+export async function getAllCourses(req: Request, res: Response): Promise<any> {
   let connection: Connection | null = null;
 
   try {
@@ -21,10 +18,11 @@ export async function getAllCourses(
 
     logInfo(NAMESPACE, "Closing connection...");
     logInfo(NAMESPACE, "Returning data:");
-    return res.json(result).status(200);
+
+    return successResponse(res, "Cursos recuperados com sucesso!", 200, result);
   } catch (error) {
     logError(NAMESPACE, "Server error", error);
-    return res.json(error).status(500);
+    return errorResponse(res, error);
   } finally {
     if (connection) {
       connection.end();
