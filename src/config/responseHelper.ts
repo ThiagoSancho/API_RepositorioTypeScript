@@ -4,7 +4,7 @@ import { Response } from "express";
 const DEFAULT_ERROR_MESSAGE = "Erro de servidor, tente novamente mais tarde!"
 export function successResponse(res: Response, message: String, statusCode: number = 200, data?: any) {
     let response;
-    if (data) {
+    if (!data) {
         response = {
             status: "SUCCESS",
             statusCode: statusCode,
@@ -23,7 +23,7 @@ export function successResponse(res: Response, message: String, statusCode: numb
     return res.status(statusCode).json(response);
 }
 
-export function errorResponse(res: Response, message: String = DEFAULT_ERROR_MESSAGE, statusCode: number = 500, data?: any) {
+export function errorResponse(res: Response, data?: any, message: String = DEFAULT_ERROR_MESSAGE, statusCode: number = 500) {
     let response;
     if (data) {
         response = {
