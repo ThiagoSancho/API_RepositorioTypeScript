@@ -1,4 +1,4 @@
-import mysql, { ConnectionOptions } from "mysql2";
+import mysql, { ConnectionOptions } from "mysql2/promise.js";
 import dotenv from "dotenv";
 
 dotenv.config()
@@ -8,28 +8,18 @@ const access: ConnectionOptions = {
   database: process.env.MYSQL_DATABASE,
 };
 
-const Connect = async () =>
-  new Promise<mysql.Connection>((resolve, reject) => {
-    const connection = mysql.createConnection(access);
-    connection.connect((error) => {
-      if (error) {
-        reject(error);
-      }
-    });
+async function Connect(): Promise<mysql.Connection> {
+  const connection: mysql.Connection = await mysql.createConnection(access)
+  return connection;
+}
 
-    resolve(connection);
-  });
+async function Query(connection: mysql.Connection, query: string, values?: any[]) {
+  if (values) {
+    return await connection.execute(query, values);
 
-const Query = async (connection: mysql.Connection, query: string) =>
-  new Promise((resolve, reject) => {
-    connection.query(query, (error, result) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-
-      resolve(result);
-    });
-  });
+  } else {
+    return await connection.execute(query);
+  }
+}
 
 export { Connect, Query };
